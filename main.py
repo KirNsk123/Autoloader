@@ -11,7 +11,7 @@ elem_list = []
 path_list = []
 scr_list = []
 elem_ind = 0
-scrt_ind = 0
+scrt_ind = 1
 
 
 class Element:
@@ -220,8 +220,8 @@ def ch_file():
 
 def cr_scrt():
     global scrt_ind
-    if scrt_ind > 9:
-        showerror(message="Количество одновременно созданных сценариев не может превышать 10!")
+    if scrt_ind == 6:
+        showerror(message="Количество одновременно созданных сценариев не может превышать 5!")
     else:
         Script(name="")
         scrt_ind += 1
@@ -235,7 +235,7 @@ def cr_scrt():
 
 root = Tk()  # Создаем окно
 root.title("Автозапускатель")
-root.geometry("350x540")
+root.geometry("350x650")
 root.resizable(False, False)
 
 font1 = font.Font(family="Arial", size=11, weight="normal", slant="roman")
