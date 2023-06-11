@@ -290,7 +290,7 @@ edit_menu.add_command(label="Добавить путь", command=ch_file)
 edit_menu.add_cascade(label="Удалить путь", menu=del1_menu)
 
 no_scrt_yet_lab = ttk.Label(text="Ещё нет созданных сценариев!", font=font1, foreground="grey50")
-no_scrt_yet_lab.place(anchor=N, x=200, y=10)
+no_scrt_yet_lab.place(anchor=N, x=175, y=10)
 
 try:
     elem_list[0]
