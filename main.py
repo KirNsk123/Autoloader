@@ -6,6 +6,7 @@ from tkinter import ttk
 from tkinter.messagebox import showerror
 from os import *
 
+# elem_file = open('elems.txt', '+')
 
 elem_list = []
 path_list = []
@@ -94,12 +95,9 @@ class Script:
         self.frame_elem.pack(anchor=NW, fill=X, padx=1, pady=1)
         self.save_name_but = ttk.Button(master=self.frame_name, text="Сохранить", command=self.save)
         self.save_name_but.pack(anchor=NE)
-        if self.name != "":
-            self.name_ent = Entry(master=self.frame_name)
-            self.name_ent.insert(0, self.name)
-        else:
-            self.name_ent = EntryWithPlaceholder(master=self.frame_name, placeholder="Имя сценария")
+        self.name_ent = ttk.Entry(master=self.frame_name)
         self.name_ent.place(x=0, y=3)
+        self.name_ent.insert(0, f"Сценарий {scrt_ind}")
         del2_menu.add_command(label=self.name, command=self.delete)
         scr_list.append(self)
 
@@ -142,7 +140,7 @@ class Script:
     def save(self):
         global scrt_ind
         del2_menu.delete(self.name)
-        scr_list.remove(self.name)
+        scr_list.remove(self)
         self.name = self.name_ent.get()
         if self.name == "Имя сценария":
             self.name = f"Сценарий {scrt_ind}"
