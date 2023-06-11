@@ -105,6 +105,35 @@ class Script:
 
         self.close()
 
+        try:
+            elem_list[0]
+        except IndexError:
+            edit_menu.entryconfig(2, state=DISABLED)
+            for i in scr_list:
+                i.ch_elem_1.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_2.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_3.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_4.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_5.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_6.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_7.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_8.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_9.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_10.configure(values=elem_list, state=DISABLED)
+        else:
+            edit_menu.entryconfig(1, state=NORMAL)
+            for i in scr_list:
+                i.ch_elem_1.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_2.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_3.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_4.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_5.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_6.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_7.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_8.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_9.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_10.configure(values=elem_list, state=NORMAL)
+
 
     # def clear(self):
     #     self.ch_elem_1.set('')
@@ -157,20 +186,29 @@ class Script:
         self.frame_elem.pack(anchor=NW, fill=X, padx=1, pady=1)
         self.show_but.pack_forget()
 
-    def get_elems(self):
-        self.ch1 = self.ch_elem_1.get()
-        self.ch2 = self.ch_elem_1.get()
-        self.ch3 = self.ch_elem_1.get()
-        self.ch4 = self.ch_elem_1.get()
-        self.ch5 = self.ch_elem_1.get()
-        self.ch6 = self.ch_elem_1.get()
-        self.ch7 = self.ch_elem_1.get()
-        self.ch8 = self.ch_elem_1.get()
-        self.ch9 = self.ch_elem_1.get()
-        self.ch10 = self.ch_elem_1.get()
+    # def get_elems(self):
+    #     self.ch1 = self.ch_elem_1.get()
+    #     self.ch2 = self.ch_elem_1.get()
+    #     self.ch3 = self.ch_elem_1.get()
+    #     self.ch4 = self.ch_elem_1.get()
+    #     self.ch5 = self.ch_elem_1.get()
+    #     self.ch6 = self.ch_elem_1.get()
+    #     self.ch7 = self.ch_elem_1.get()
+    #     self.ch8 = self.ch_elem_1.get()
+    #     self.ch9 = self.ch_elem_1.get()
+    #     self.ch10 = self.ch_elem_1.get()
 
     def start(self):
-        self.get_elems()
+        self.ch1 = self.ch_elem_1.get()
+        self.ch2 = self.ch_elem_2.get()
+        self.ch3 = self.ch_elem_3.get()
+        self.ch4 = self.ch_elem_4.get()
+        self.ch5 = self.ch_elem_5.get()
+        self.ch6 = self.ch_elem_6.get()
+        self.ch7 = self.ch_elem_7.get()
+        self.ch8 = self.ch_elem_8.get()
+        self.ch9 = self.ch_elem_9.get()
+        self.ch10 = self.ch_elem_10.get()
         if self.ch1 == "":
             pass
         else:
@@ -211,7 +249,6 @@ class Script:
             pass
         else:
             os.startfile(path_list[elem_list.index(self.ch10)])
-
 def ch_file():
     global elem_ind
     if elem_ind > 50:
