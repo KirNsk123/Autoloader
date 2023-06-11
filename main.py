@@ -25,6 +25,7 @@ class Element:
         elem_list.insert(0, self.name)
 
     def delete(self):
+        global elem_ind
         del1_menu.delete(self.name)
         elem_list.remove(self.name)
         elem_ind -= 1
@@ -32,19 +33,30 @@ class Element:
             elem_list[0]
         except IndexError:
             edit_menu.entryconfig(2, state=DISABLED)
+            for i in scr_list:
+                i.ch_elem_1.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_2.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_3.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_4.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_5.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_6.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_7.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_8.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_9.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_10.configure(values=elem_list, state=DISABLED)
         else:
             edit_menu.entryconfig(1, state=NORMAL)
             for i in scr_list:
-                i.ch_elem_1.configure(values=elem_list)
-                i.ch_elem_2.configure(values=elem_list)
-                i.ch_elem_3.configure(values=elem_list)
-                i.ch_elem_4.configure(values=elem_list)
-                i.ch_elem_5.configure(values=elem_list)
-                i.ch_elem_6.configure(values=elem_list)
-                i.ch_elem_7.configure(values=elem_list)
-                i.ch_elem_8.configure(values=elem_list)
-                i.ch_elem_9.configure(values=elem_list)
-                i.ch_elem_10.configure(values=elem_list)
+                i.ch_elem_1.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_2.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_3.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_4.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_5.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_6.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_7.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_8.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_9.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_10.configure(values=elem_list, state=NORMAL)
 
 
 class Script:
@@ -60,7 +72,6 @@ class Script:
         self.start_but = ttk.Button(master=self.frame_main, text="Запустить", command=self.start)
         self.start_but.place(x=120, y=45)
         self.frame_elem = ttk.Frame(master=self.frame_main, borderwidth=1, relief=SOLID, padding=[8, 8])
-        self.frame_elem.pack(anchor=NW, fill=X, padx=1, pady=1)
         self.save_name_but = ttk.Button(master=self.frame_name, text="Сохранить", command=self.save)
         self.save_name_but.pack(anchor=NE)
         self.name_ent = ttk.Entry(master=self.frame_name)
@@ -94,6 +105,18 @@ class Script:
 
         self.close()
 
+
+    # def clear(self):
+    #     self.ch_elem_1.set('')
+    #     self.ch_elem_2.set('')
+    #     self.ch_elem_3.set('')
+    #     self.ch_elem_4.set('')
+    #     self.ch_elem_5.set('')
+    #     self.ch_elem_6.set('')
+    #     self.ch_elem_7.set('')
+    #     self.ch_elem_8.set('')
+    #     self.ch_elem_9.set('')
+    #     self.ch_elem_10.set('')
     def delete(self):
         global scrt_ind
         del2_menu.delete(self.name)
@@ -204,19 +227,30 @@ def ch_file():
             elem_list[0]
         except IndexError:
             edit_menu.entryconfig(2, state=DISABLED)
+            for i in scr_list:
+                i.ch_elem_1.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_2.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_3.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_4.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_5.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_6.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_7.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_8.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_9.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_10.configure(values=elem_list, state=DISABLED)
         else:
             edit_menu.entryconfig(1, state=NORMAL)
             for i in scr_list:
-                i.ch_elem_1.configure(values=elem_list)
-                i.ch_elem_2.configure(values=elem_list)
-                i.ch_elem_3.configure(values=elem_list)
-                i.ch_elem_4.configure(values=elem_list)
-                i.ch_elem_5.configure(values=elem_list)
-                i.ch_elem_6.configure(values=elem_list)
-                i.ch_elem_7.configure(values=elem_list)
-                i.ch_elem_8.configure(values=elem_list)
-                i.ch_elem_9.configure(values=elem_list)
-                i.ch_elem_10.configure(values=elem_list)
+                i.ch_elem_1.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_2.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_3.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_4.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_5.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_6.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_7.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_8.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_9.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_10.configure(values=elem_list, state=NORMAL)
 
 def cr_scrt():
     global scrt_ind
@@ -235,7 +269,7 @@ def cr_scrt():
 
 root = Tk()  # Создаем окно
 root.title("Автозапускатель")
-root.geometry("350x650")
+root.geometry("350x670")
 root.resizable(False, False)
 
 font1 = font.Font(family="Arial", size=11, weight="normal", slant="roman")
@@ -262,19 +296,30 @@ try:
     elem_list[0]
 except IndexError:
     edit_menu.entryconfig(2, state=DISABLED)
+    for i in scr_list:
+        i.ch_elem_1.configure(values=elem_list, state=DISABLED)
+        i.ch_elem_2.configure(values=elem_list, state=DISABLED)
+        i.ch_elem_3.configure(values=elem_list, state=DISABLED)
+        i.ch_elem_4.configure(values=elem_list, state=DISABLED)
+        i.ch_elem_5.configure(values=elem_list, state=DISABLED)
+        i.ch_elem_6.configure(values=elem_list, state=DISABLED)
+        i.ch_elem_7.configure(values=elem_list, state=DISABLED)
+        i.ch_elem_8.configure(values=elem_list, state=DISABLED)
+        i.ch_elem_9.configure(values=elem_list, state=DISABLED)
+        i.ch_elem_10.configure(values=elem_list, state=DISABLED)
 else:
     edit_menu.entryconfig(1, state=NORMAL)
     for i in scr_list:
-        i.ch_elem_1.configure(values=elem_list)
-        i.ch_elem_2.configure(values=elem_list)
-        i.ch_elem_3.configure(values=elem_list)
-        i.ch_elem_4.configure(values=elem_list)
-        i.ch_elem_5.configure(values=elem_list)
-        i.ch_elem_6.configure(values=elem_list)
-        i.ch_elem_7.configure(values=elem_list)
-        i.ch_elem_8.configure(values=elem_list)
-        i.ch_elem_9.configure(values=elem_list)
-        i.ch_elem_10.configure(values=elem_list)
+        i.ch_elem_1.configure(values=elem_list, state=NORMAL)
+        i.ch_elem_2.configure(values=elem_list, state=NORMAL)
+        i.ch_elem_3.configure(values=elem_list, state=NORMAL)
+        i.ch_elem_4.configure(values=elem_list, state=NORMAL)
+        i.ch_elem_5.configure(values=elem_list, state=NORMAL)
+        i.ch_elem_6.configure(values=elem_list, state=NORMAL)
+        i.ch_elem_7.configure(values=elem_list, state=NORMAL)
+        i.ch_elem_8.configure(values=elem_list, state=NORMAL)
+        i.ch_elem_9.configure(values=elem_list, state=NORMAL)
+        i.ch_elem_10.configure(values=elem_list, state=NORMAL)
 
 try:
     scr_list[0]
