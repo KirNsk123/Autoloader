@@ -4,7 +4,6 @@ from tkinter import font
 from tkinter import filedialog
 from tkinter import ttk
 from tkinter.messagebox import showerror
-from os import *
 
 # elem_file = open('elems.txt', '+')
 
@@ -13,37 +12,6 @@ path_list = []
 scr_list = []
 elem_ind = 0
 scrt_ind = 0
-
-
-class EntryWithPlaceholder(Entry):
-    def __init__(self, master=None, placeholder=None):
-        super().__init__(master)
-
-        if placeholder is not None:
-            self.placeholder = placeholder
-            self.placeholder_color = 'grey'
-            self.default_fg_color = self['fg']
-
-            self.bind("<FocusIn>", self.focus_in)
-            self.bind("<FocusOut>", self.focus_out)
-
-            self.put_placeholder()
-
-    def put_placeholder(self):
-        self.insert(0, self.placeholder)
-        self['fg'] = self.placeholder_color
-
-    def focus_in(self, *args):
-        if self['fg'] == self.placeholder_color:
-            self.delete('0', 'end')
-            self['fg'] = self.default_fg_color
-
-    def focus_out(self, *args):
-        if not self.get():
-            self.put_placeholder()
-
-    def insert(self, index, string):
-        self.tk.call(self._w, 'insert', index, string)
 
 
 class Element:
@@ -98,6 +66,8 @@ class Script:
         self.name_ent = ttk.Entry(master=self.frame_name)
         self.name_ent.place(x=0, y=3)
         self.name_ent.insert(0, f"Сценарий {scrt_ind}")
+        self.name_ent.focus_set()
+        self.name_ent.selection_range(0, END)
         del2_menu.add_command(label=self.name, command=self.delete)
         scr_list.append(self)
 
@@ -247,8 +217,6 @@ def ch_file():
                 i.ch_elem_8.configure(values=elem_list)
                 i.ch_elem_9.configure(values=elem_list)
                 i.ch_elem_10.configure(values=elem_list)
-    print(elem_list)
-    print(path_list)
 
 def cr_scrt():
     global scrt_ind
