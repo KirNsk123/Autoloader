@@ -6,7 +6,38 @@ from tkinter import ttk
 from tkinter.messagebox import showerror
 import sqlite3
 
+elem_db = sqlite3.connect('elems.db')
+elem_cur = elem_db.cursor()
 
+scrt_db = sqlite3.connect('scrts.db')
+scrt_cur = scrt_db.cursor()
+
+try:
+    elem_cur.execute("""CREATE TABLE elems
+                        (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        name TEXT,
+                        path TEXT
+                        )
+                    """)
+    scrt_cur.execute("""CREATE TABLE scrt
+                        (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        name TEXT,
+                        elem1 TEXT,
+                        elem2 TEXT,
+                        elem3 TEXT,
+                        elem4 TEXT,
+                        elem5 TEXT,
+                        elem6 TEXT,
+                        elem7 TEXT,
+                        elem8 TEXT,
+                        elem9 TEXT,
+                        elem10 TEXT
+                        )
+                    """)
+except sqlite3.OperationalError:
+    pass
+else:
+    pass
 
 elem_list = []
 path_list = []
