@@ -45,9 +45,6 @@ scr_list = []
 elem_ind = 0
 scrt_ind = 1
 
-old_elems = []
-new_elems = []
-
 
 class Element:
     def __init__(self, path, state="new"):
@@ -60,15 +57,14 @@ class Element:
         elem_name_list.insert(0, self.name)
         elem_list.insert(0, self)
         self.state = state
-        if state == "new":
-            new_elems.insert(0, self.path)
-        elif state == "old":
-            old_elems.insert(0, self.path)
 
     def delete(self):
         global elem_ind
         del1_menu.delete(self.name)
         elem_name_list.remove(self.name)
+        elem_list.remove(self)
+        elem_cur.execute("DELETE FROM elems WHERE path=?", (self.path,))
+        elem_db.commit()
         elem_ind -= 1
         try:
             elem_name_list[0]
@@ -290,6 +286,8 @@ class Script:
             pass
         else:
             os.startfile(path_list[elem_name_list.index(self.ch10)])
+
+
 def ch_file():
     global elem_ind
     if elem_ind > 50:
