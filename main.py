@@ -4,8 +4,9 @@ from tkinter import font
 from tkinter import filedialog
 from tkinter import ttk
 from tkinter.messagebox import showerror
+import sqlite3
 
-# elem_file = open('elems.txt', '+')
+
 
 elem_list = []
 path_list = []
@@ -304,6 +305,12 @@ def cr_scrt():
             file_menu.entryconfig(1, state=NORMAL)
 
 
+# def start_app():
+#     lines = elem_file.readlines()
+#     for line in lines:
+#         Element(line.strip())
+
+
 root = Tk()  # Создаем окно
 root.title("Автозапускатель")
 root.geometry("350x670")
@@ -364,6 +371,8 @@ except IndexError:
     file_menu.entryconfig(2, state=DISABLED)
 else:
     file_menu.entryconfig(1, state=NORMAL)
+
+# start_app()
 
 root.config(menu=main_menu)
 mainloop()
