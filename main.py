@@ -38,6 +38,7 @@ except sqlite3.OperationalError:
 else:
     pass
 
+elem_name_list = []
 elem_list = []
 path_list = []
 scr_list = []
@@ -56,7 +57,8 @@ class Element:
         pth_list = str(path).split(sep="/")
         self.name = pth_list[len(pth_list) - 1]
         del1_menu.add_command(label=self.name, command=self.delete)
-        elem_list.insert(0, self.name)
+        elem_name_list.insert(0, self.name)
+        elem_list.insert(0, self)
         self.state = state
         if state == "new":
             new_elems.insert(0, self.path)
@@ -66,36 +68,36 @@ class Element:
     def delete(self):
         global elem_ind
         del1_menu.delete(self.name)
-        elem_list.remove(self.name)
+        elem_name_list.remove(self.name)
         elem_ind -= 1
         try:
-            elem_list[0]
+            elem_name_list[0]
         except IndexError:
-            edit_menu.entryconfig(2, state=DISABLED)
+            edit_menu.entryconfig(1, state=DISABLED)
             for i in scr_list:
-                i.ch_elem_1.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_2.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_3.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_4.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_5.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_6.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_7.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_8.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_9.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_10.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_1.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_2.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_3.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_4.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_5.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_6.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_7.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_8.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_9.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_10.configure(values=elem_name_list, state=DISABLED)
         else:
             edit_menu.entryconfig(1, state=NORMAL)
             for i in scr_list:
-                i.ch_elem_1.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_2.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_3.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_4.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_5.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_6.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_7.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_8.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_9.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_10.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_1.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_2.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_3.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_4.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_5.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_6.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_7.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_8.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_9.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_10.configure(values=elem_name_list, state=NORMAL)
 
 
 class Script:
@@ -121,57 +123,57 @@ class Script:
         del2_menu.add_command(label=self.name, command=self.delete)
         scr_list.append(self)
 
-        self.ch_elem_1 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_list, state=DISABLED)
+        self.ch_elem_1 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_name_list, state=DISABLED)
         self.ch_elem_1.pack(anchor=NW, pady=3)
-        self.ch_elem_2 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_list, state=DISABLED)
+        self.ch_elem_2 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_name_list, state=DISABLED)
         self.ch_elem_2.pack(anchor=NW, pady=3)
-        self.ch_elem_3 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_list, state=DISABLED)
+        self.ch_elem_3 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_name_list, state=DISABLED)
         self.ch_elem_3.pack(anchor=NW, pady=3)
-        self.ch_elem_4 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_list, state=DISABLED)
+        self.ch_elem_4 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_name_list, state=DISABLED)
         self.ch_elem_4.pack(anchor=NW, pady=3)
-        self.ch_elem_5 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_list, state=DISABLED)
+        self.ch_elem_5 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_name_list, state=DISABLED)
         self.ch_elem_5.pack(anchor=NW, pady=3)
-        self.ch_elem_6 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_list, state=DISABLED)
+        self.ch_elem_6 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_name_list, state=DISABLED)
         self.ch_elem_6.place(x=170, y=3)
-        self.ch_elem_7 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_list, state=DISABLED)
+        self.ch_elem_7 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_name_list, state=DISABLED)
         self.ch_elem_7.place(x=170, y=30)
-        self.ch_elem_8 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_list, state=DISABLED)
+        self.ch_elem_8 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_name_list, state=DISABLED)
         self.ch_elem_8.place(x=170, y=57)
-        self.ch_elem_9 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_list, state=DISABLED)
+        self.ch_elem_9 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_name_list, state=DISABLED)
         self.ch_elem_9.place(x=170, y=84)
-        self.ch_elem_10 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_list, state=DISABLED)
+        self.ch_elem_10 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_name_list, state=DISABLED)
         self.ch_elem_10.place(x=170, y=111)
 
         self.close()
 
         try:
-            elem_list[0]
+            elem_name_list[0]
         except IndexError:
-            edit_menu.entryconfig(2, state=DISABLED)
+            edit_menu.entryconfig(1, state=DISABLED)
             for i in scr_list:
-                i.ch_elem_1.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_2.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_3.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_4.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_5.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_6.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_7.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_8.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_9.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_10.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_1.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_2.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_3.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_4.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_5.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_6.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_7.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_8.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_9.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_10.configure(values=elem_name_list, state=DISABLED)
         else:
             edit_menu.entryconfig(1, state=NORMAL)
             for i in scr_list:
-                i.ch_elem_1.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_2.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_3.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_4.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_5.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_6.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_7.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_8.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_9.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_10.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_1.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_2.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_3.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_4.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_5.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_6.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_7.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_8.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_9.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_10.configure(values=elem_name_list, state=NORMAL)
 
 
     # def clear(self):
@@ -251,43 +253,43 @@ class Script:
         if self.ch1 == "":
             pass
         else:
-            os.startfile(path_list[elem_list.index(self.ch1)])
+            os.startfile(path_list[elem_name_list.index(self.ch1)])
         if self.ch2 == "":
             pass
         else:
-            os.startfile(path_list[elem_list.index(self.ch2)])
+            os.startfile(path_list[elem_name_list.index(self.ch2)])
         if self.ch3 == "":
             pass
         else:
-            os.startfile(path_list[elem_list.index(self.ch3)])
+            os.startfile(path_list[elem_name_list.index(self.ch3)])
         if self.ch4 == "":
             pass
         else:
-            os.startfile(path_list[elem_list.index(self.ch4)])
+            os.startfile(path_list[elem_name_list.index(self.ch4)])
         if self.ch5 == "":
             pass
         else:
-            os.startfile(path_list[elem_list.index(self.ch5)])
+            os.startfile(path_list[elem_name_list.index(self.ch5)])
         if self.ch6 == "":
             pass
         else:
-            os.startfile(path_list[elem_list.index(self.ch6)])
+            os.startfile(path_list[elem_name_list.index(self.ch6)])
         if self.ch7 == "":
             pass
         else:
-            os.startfile(path_list[elem_list.index(self.ch7)])
+            os.startfile(path_list[elem_name_list.index(self.ch7)])
         if self.ch8 == "":
             pass
         else:
-            os.startfile(path_list[elem_list.index(self.ch8)])
+            os.startfile(path_list[elem_name_list.index(self.ch8)])
         if self.ch9 == "":
             pass
         else:
-            os.startfile(path_list[elem_list.index(self.ch9)])
+            os.startfile(path_list[elem_name_list.index(self.ch9)])
         if self.ch10 == "":
             pass
         else:
-            os.startfile(path_list[elem_list.index(self.ch10)])
+            os.startfile(path_list[elem_name_list.index(self.ch10)])
 def ch_file():
     global elem_ind
     if elem_ind > 50:
@@ -300,33 +302,34 @@ def ch_file():
             Element(file)
             elem_ind += 1
         try:
-            elem_list[0]
+            elem_name_list[0]
         except IndexError:
-            edit_menu.entryconfig(2, state=DISABLED)
+            edit_menu.entryconfig(1, state=DISABLED)
             for i in scr_list:
-                i.ch_elem_1.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_2.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_3.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_4.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_5.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_6.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_7.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_8.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_9.configure(values=elem_list, state=DISABLED)
-                i.ch_elem_10.configure(values=elem_list, state=DISABLED)
+                i.ch_elem_1.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_2.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_3.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_4.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_5.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_6.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_7.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_8.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_9.configure(values=elem_name_list, state=DISABLED)
+                i.ch_elem_10.configure(values=elem_name_list, state=DISABLED)
         else:
             edit_menu.entryconfig(1, state=NORMAL)
             for i in scr_list:
-                i.ch_elem_1.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_2.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_3.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_4.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_5.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_6.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_7.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_8.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_9.configure(values=elem_list, state=NORMAL)
-                i.ch_elem_10.configure(values=elem_list, state=NORMAL)
+                i.ch_elem_1.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_2.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_3.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_4.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_5.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_6.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_7.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_8.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_9.configure(values=elem_name_list, state=NORMAL)
+                i.ch_elem_10.configure(values=elem_name_list, state=NORMAL)
+
 
 def cr_scrt():
     global scrt_ind
@@ -342,35 +345,45 @@ def cr_scrt():
         else:
             file_menu.entryconfig(1, state=NORMAL)
 
+
+def load_elems_to_db():
+    for i in elem_list:
+        if i.state == "old":
+            pass
+        elif i.state == "new":
+            elem_cur.execute("INSERT INTO elems (path) VALUES (?)", (i.path,))
+            elem_db.commit()
+
+
 def start_app():
     try:
-        elem_list[0]
+        elem_name_list[0]
     except IndexError:
-        edit_menu.entryconfig(2, state=DISABLED)
+        edit_menu.entryconfig(1, state=DISABLED)
         for i in scr_list:
-            i.ch_elem_1.configure(values=elem_list, state=DISABLED)
-            i.ch_elem_2.configure(values=elem_list, state=DISABLED)
-            i.ch_elem_3.configure(values=elem_list, state=DISABLED)
-            i.ch_elem_4.configure(values=elem_list, state=DISABLED)
-            i.ch_elem_5.configure(values=elem_list, state=DISABLED)
-            i.ch_elem_6.configure(values=elem_list, state=DISABLED)
-            i.ch_elem_7.configure(values=elem_list, state=DISABLED)
-            i.ch_elem_8.configure(values=elem_list, state=DISABLED)
-            i.ch_elem_9.configure(values=elem_list, state=DISABLED)
-            i.ch_elem_10.configure(values=elem_list, state=DISABLED)
+            i.ch_elem_1.configure(values=elem_name_list, state=DISABLED)
+            i.ch_elem_2.configure(values=elem_name_list, state=DISABLED)
+            i.ch_elem_3.configure(values=elem_name_list, state=DISABLED)
+            i.ch_elem_4.configure(values=elem_name_list, state=DISABLED)
+            i.ch_elem_5.configure(values=elem_name_list, state=DISABLED)
+            i.ch_elem_6.configure(values=elem_name_list, state=DISABLED)
+            i.ch_elem_7.configure(values=elem_name_list, state=DISABLED)
+            i.ch_elem_8.configure(values=elem_name_list, state=DISABLED)
+            i.ch_elem_9.configure(values=elem_name_list, state=DISABLED)
+            i.ch_elem_10.configure(values=elem_name_list, state=DISABLED)
     else:
         edit_menu.entryconfig(1, state=NORMAL)
         for i in scr_list:
-            i.ch_elem_1.configure(values=elem_list, state=NORMAL)
-            i.ch_elem_2.configure(values=elem_list, state=NORMAL)
-            i.ch_elem_3.configure(values=elem_list, state=NORMAL)
-            i.ch_elem_4.configure(values=elem_list, state=NORMAL)
-            i.ch_elem_5.configure(values=elem_list, state=NORMAL)
-            i.ch_elem_6.configure(values=elem_list, state=NORMAL)
-            i.ch_elem_7.configure(values=elem_list, state=NORMAL)
-            i.ch_elem_8.configure(values=elem_list, state=NORMAL)
-            i.ch_elem_9.configure(values=elem_list, state=NORMAL)
-            i.ch_elem_10.configure(values=elem_list, state=NORMAL)
+            i.ch_elem_1.configure(values=elem_name_list, state=NORMAL)
+            i.ch_elem_2.configure(values=elem_name_list, state=NORMAL)
+            i.ch_elem_3.configure(values=elem_name_list, state=NORMAL)
+            i.ch_elem_4.configure(values=elem_name_list, state=NORMAL)
+            i.ch_elem_5.configure(values=elem_name_list, state=NORMAL)
+            i.ch_elem_6.configure(values=elem_name_list, state=NORMAL)
+            i.ch_elem_7.configure(values=elem_name_list, state=NORMAL)
+            i.ch_elem_8.configure(values=elem_name_list, state=NORMAL)
+            i.ch_elem_9.configure(values=elem_name_list, state=NORMAL)
+            i.ch_elem_10.configure(values=elem_name_list, state=NORMAL)
 
 
 root = Tk()  # Создаем окно
@@ -394,38 +407,39 @@ file_menu.add_cascade(label="Удалить", menu=del2_menu)
 
 edit_menu.add_command(label="Добавить путь", command=ch_file)
 edit_menu.add_cascade(label="Удалить путь", menu=del1_menu)
+edit_menu.add_command(label="Сохранить пути", command=load_elems_to_db)
 
 no_scrt_yet_lab = ttk.Label(text="Ещё нет созданных сценариев!", font=font1, foreground="grey50")
 no_scrt_yet_lab.place(anchor=N, x=175, y=10)
 
 try:
-    elem_list[0]
+    elem_name_list[0]
 except IndexError:
-    edit_menu.entryconfig(2, state=DISABLED)
+    edit_menu.entryconfig(1, state=DISABLED)
     for i in scr_list:
-        i.ch_elem_1.configure(values=elem_list, state=DISABLED)
-        i.ch_elem_2.configure(values=elem_list, state=DISABLED)
-        i.ch_elem_3.configure(values=elem_list, state=DISABLED)
-        i.ch_elem_4.configure(values=elem_list, state=DISABLED)
-        i.ch_elem_5.configure(values=elem_list, state=DISABLED)
-        i.ch_elem_6.configure(values=elem_list, state=DISABLED)
-        i.ch_elem_7.configure(values=elem_list, state=DISABLED)
-        i.ch_elem_8.configure(values=elem_list, state=DISABLED)
-        i.ch_elem_9.configure(values=elem_list, state=DISABLED)
-        i.ch_elem_10.configure(values=elem_list, state=DISABLED)
+        i.ch_elem_1.configure(values=elem_name_list, state=DISABLED)
+        i.ch_elem_2.configure(values=elem_name_list, state=DISABLED)
+        i.ch_elem_3.configure(values=elem_name_list, state=DISABLED)
+        i.ch_elem_4.configure(values=elem_name_list, state=DISABLED)
+        i.ch_elem_5.configure(values=elem_name_list, state=DISABLED)
+        i.ch_elem_6.configure(values=elem_name_list, state=DISABLED)
+        i.ch_elem_7.configure(values=elem_name_list, state=DISABLED)
+        i.ch_elem_8.configure(values=elem_name_list, state=DISABLED)
+        i.ch_elem_9.configure(values=elem_name_list, state=DISABLED)
+        i.ch_elem_10.configure(values=elem_name_list, state=DISABLED)
 else:
     edit_menu.entryconfig(1, state=NORMAL)
     for i in scr_list:
-        i.ch_elem_1.configure(values=elem_list, state=NORMAL)
-        i.ch_elem_2.configure(values=elem_list, state=NORMAL)
-        i.ch_elem_3.configure(values=elem_list, state=NORMAL)
-        i.ch_elem_4.configure(values=elem_list, state=NORMAL)
-        i.ch_elem_5.configure(values=elem_list, state=NORMAL)
-        i.ch_elem_6.configure(values=elem_list, state=NORMAL)
-        i.ch_elem_7.configure(values=elem_list, state=NORMAL)
-        i.ch_elem_8.configure(values=elem_list, state=NORMAL)
-        i.ch_elem_9.configure(values=elem_list, state=NORMAL)
-        i.ch_elem_10.configure(values=elem_list, state=NORMAL)
+        i.ch_elem_1.configure(values=elem_name_list, state=NORMAL)
+        i.ch_elem_2.configure(values=elem_name_list, state=NORMAL)
+        i.ch_elem_3.configure(values=elem_name_list, state=NORMAL)
+        i.ch_elem_4.configure(values=elem_name_list, state=NORMAL)
+        i.ch_elem_5.configure(values=elem_name_list, state=NORMAL)
+        i.ch_elem_6.configure(values=elem_name_list, state=NORMAL)
+        i.ch_elem_7.configure(values=elem_name_list, state=NORMAL)
+        i.ch_elem_8.configure(values=elem_name_list, state=NORMAL)
+        i.ch_elem_9.configure(values=elem_name_list, state=NORMAL)
+        i.ch_elem_10.configure(values=elem_name_list, state=NORMAL)
 
 elem_cur.execute("SELECT * FROM elems")
 
