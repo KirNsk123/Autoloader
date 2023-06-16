@@ -15,7 +15,6 @@ scrt_cur = scrt_db.cursor()
 try:
     elem_cur.execute("""CREATE TABLE elems
                         (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        name TEXT,
                         path TEXT
                         )
                     """)
@@ -45,9 +44,12 @@ scr_list = []
 elem_ind = 0
 scrt_ind = 1
 
+old_elems = []
+new_elems = []
+
 
 class Element:
-    def __init__(self, path):
+    def __init__(self, path, state="new"):
         global path_list
         self.path = path
         path_list.insert(0, self.path)
@@ -55,6 +57,11 @@ class Element:
         self.name = pth_list[len(pth_list) - 1]
         del1_menu.add_command(label=self.name, command=self.delete)
         elem_list.insert(0, self.name)
+        self.state = state
+        if state == "new":
+            new_elems.insert(0, self.path)
+        elif state == "old":
+            old_elems.insert(0, self.path)
 
     def delete(self):
         global elem_ind
@@ -335,11 +342,35 @@ def cr_scrt():
         else:
             file_menu.entryconfig(1, state=NORMAL)
 
-
-# def start_app():
-#     lines = elem_file.readlines()
-#     for line in lines:
-#         Element(line.strip())
+def start_app():
+    try:
+        elem_list[0]
+    except IndexError:
+        edit_menu.entryconfig(2, state=DISABLED)
+        for i in scr_list:
+            i.ch_elem_1.configure(values=elem_list, state=DISABLED)
+            i.ch_elem_2.configure(values=elem_list, state=DISABLED)
+            i.ch_elem_3.configure(values=elem_list, state=DISABLED)
+            i.ch_elem_4.configure(values=elem_list, state=DISABLED)
+            i.ch_elem_5.configure(values=elem_list, state=DISABLED)
+            i.ch_elem_6.configure(values=elem_list, state=DISABLED)
+            i.ch_elem_7.configure(values=elem_list, state=DISABLED)
+            i.ch_elem_8.configure(values=elem_list, state=DISABLED)
+            i.ch_elem_9.configure(values=elem_list, state=DISABLED)
+            i.ch_elem_10.configure(values=elem_list, state=DISABLED)
+    else:
+        edit_menu.entryconfig(1, state=NORMAL)
+        for i in scr_list:
+            i.ch_elem_1.configure(values=elem_list, state=NORMAL)
+            i.ch_elem_2.configure(values=elem_list, state=NORMAL)
+            i.ch_elem_3.configure(values=elem_list, state=NORMAL)
+            i.ch_elem_4.configure(values=elem_list, state=NORMAL)
+            i.ch_elem_5.configure(values=elem_list, state=NORMAL)
+            i.ch_elem_6.configure(values=elem_list, state=NORMAL)
+            i.ch_elem_7.configure(values=elem_list, state=NORMAL)
+            i.ch_elem_8.configure(values=elem_list, state=NORMAL)
+            i.ch_elem_9.configure(values=elem_list, state=NORMAL)
+            i.ch_elem_10.configure(values=elem_list, state=NORMAL)
 
 
 root = Tk()  # Создаем окно
@@ -396,6 +427,15 @@ else:
         i.ch_elem_9.configure(values=elem_list, state=NORMAL)
         i.ch_elem_10.configure(values=elem_list, state=NORMAL)
 
+elem_cur.execute("SELECT * FROM elems")
+
+for i in range(50):
+    obj = elem_cur.fetchone()
+    if obj == None:
+        break
+    else:
+        Element(obj[1], state="old")
+
 try:
     scr_list[0]
 except IndexError:
@@ -403,7 +443,7 @@ except IndexError:
 else:
     file_menu.entryconfig(1, state=NORMAL)
 
-# start_app()
+start_app()
 
 root.config(menu=main_menu)
 mainloop()
