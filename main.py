@@ -18,21 +18,81 @@ try:
                         path TEXT
                         )
                     """)
-    scrt_cur.execute("""CREATE TABLE scrt
-                        (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        name TEXT,
-                        elem1 TEXT,
-                        elem2 TEXT,
-                        elem3 TEXT,
-                        elem4 TEXT,
-                        elem5 TEXT,
-                        elem6 TEXT,
-                        elem7 TEXT,
-                        elem8 TEXT,
-                        elem9 TEXT,
-                        elem10 TEXT
-                        )
-                    """)
+    scrt_cur.execute("""CREATE TABLE scrt1
+                            (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            name TEXT,
+                            elem1 TEXT,
+                            elem2 TEXT,
+                            elem3 TEXT,
+                            elem4 TEXT,
+                            elem5 TEXT,
+                            elem6 TEXT,
+                            elem7 TEXT,
+                            elem8 TEXT,
+                            elem9 TEXT,
+                            elem10 TEXT
+                            )
+                        """)
+    scrt_cur.execute("""CREATE TABLE scrt2
+                            (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            name TEXT,
+                            elem1 TEXT,
+                            elem2 TEXT,
+                            elem3 TEXT,
+                            elem4 TEXT,
+                            elem5 TEXT,
+                            elem6 TEXT,
+                            elem7 TEXT,
+                            elem8 TEXT,
+                            elem9 TEXT,
+                            elem10 TEXT
+                            )
+                        """)
+    scrt_cur.execute("""CREATE TABLE scrt3
+                            (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            name TEXT,
+                            elem1 TEXT,
+                            elem2 TEXT,
+                            elem3 TEXT,
+                            elem4 TEXT,
+                            elem5 TEXT,
+                            elem6 TEXT,
+                            elem7 TEXT,
+                            elem8 TEXT,
+                            elem9 TEXT,
+                            elem10 TEXT
+                            )
+                        """)
+    scrt_cur.execute("""CREATE TABLE scrt4
+                            (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            name TEXT,
+                            elem1 TEXT,
+                            elem2 TEXT,
+                            elem3 TEXT,
+                            elem4 TEXT,
+                            elem5 TEXT,
+                            elem6 TEXT,
+                            elem7 TEXT,
+                            elem8 TEXT,
+                            elem9 TEXT,
+                            elem10 TEXT
+                            )
+                        """)
+    scrt_cur.execute("""CREATE TABLE scrt5
+                            (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            name TEXT,
+                            elem1 TEXT,
+                            elem2 TEXT,
+                            elem3 TEXT,
+                            elem4 TEXT,
+                            elem5 TEXT,
+                            elem6 TEXT,
+                            elem7 TEXT,
+                            elem8 TEXT,
+                            elem9 TEXT,
+                            elem10 TEXT
+                            )
+                        """)
 except sqlite3.OperationalError:
     pass
 else:
@@ -42,6 +102,7 @@ elem_name_list = []
 elem_list = []
 path_list = []
 scr_list = []
+other_list = []
 elem_ind = 0
 scrt_ind = 1
 
@@ -97,8 +158,10 @@ class Element:
 
 
 class Script:
-    def __init__(self, name=""):
+    def __init__(self, name="", state="closed", ch1="", ch2="", ch3="",
+                 ch4="", ch5="", ch6="", ch7="", ch8="", ch9="", ch10=""):
         self.name = name
+        self.index = scrt_ind
         self.frame_main = ttk.Frame(borderwidth=1, relief=SOLID, padding=[8, 8])
         self.frame_main.pack(anchor=NW, fill=X, padx=5, pady=5)
         self.frame_name = ttk.Frame(master=self.frame_main, borderwidth=1, relief=SOLID, padding=[8, 8])
@@ -116,8 +179,22 @@ class Script:
         self.name_ent.insert(0, f"Сценарий {scrt_ind}")
         self.name_ent.focus_set()
         self.name_ent.selection_range(0, END)
+        self.save_elems_but = ttk.Button(master=self.frame_elem, text="Сохранить", command=self.save_elems)
         del2_menu.add_command(label=self.name, command=self.delete)
         scr_list.append(self)
+        other_list.append(self)
+        self.state = state
+
+        self.ch1 = ch1
+        self.ch2 = ch2
+        self.ch3 = ch3
+        self.ch4 = ch4
+        self.ch5 = ch5
+        self.ch6 = ch6
+        self.ch7 = ch7
+        self.ch8 = ch8
+        self.ch9 = ch9
+        self.ch10 = ch10
 
         self.ch_elem_1 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_name_list, state=DISABLED)
         self.ch_elem_1.pack(anchor=NW, pady=3)
@@ -139,6 +216,8 @@ class Script:
         self.ch_elem_9.place(x=170, y=84)
         self.ch_elem_10 = ttk.Combobox(master=self.frame_elem, width=18, values=elem_name_list, state=DISABLED)
         self.ch_elem_10.place(x=170, y=111)
+
+        self.save_elems_but.pack()
 
         self.close()
 
@@ -171,22 +250,10 @@ class Script:
                 i.ch_elem_9.configure(values=elem_name_list, state=NORMAL)
                 i.ch_elem_10.configure(values=elem_name_list, state=NORMAL)
 
-
-    # def clear(self):
-    #     self.ch_elem_1.set('')
-    #     self.ch_elem_2.set('')
-    #     self.ch_elem_3.set('')
-    #     self.ch_elem_4.set('')
-    #     self.ch_elem_5.set('')
-    #     self.ch_elem_6.set('')
-    #     self.ch_elem_7.set('')
-    #     self.ch_elem_8.set('')
-    #     self.ch_elem_9.set('')
-    #     self.ch_elem_10.set('')
     def delete(self):
         global scrt_ind
         del2_menu.delete(self.name)
-        scr_list.remove(self.name)
+        scr_list.remove(self)
         self.frame_main.destroy()
         scrt_ind -= 1
         try:
@@ -206,34 +273,30 @@ class Script:
             self.name_ent.delete(0, END)
             self.name_ent.insert(0, self.name)
             del2_menu.add_command(label=self.name, command=self.delete)
-            scr_list.append(self.name)
+            scr_list.append(self)
             self.save_name_but.configure(state=DISABLED)
         else:
             del2_menu.add_command(label=self.name, command=self.delete)
-            scr_list.append(self.name)
+            scr_list.append(self)
             self.save_name_but.configure(state=DISABLED)
+        scrt_cur.execute(f"INSERT INTO scrts (name) VALUES (?)", (self.name,))
+        scrt_db.commit()
 
     def close(self):
         self.frame_elem.pack_forget()
         self.close_but.pack_forget()
         self.show_but.pack(anchor=NW)
+        self.state = "closed"
+        scrt_cur.execute("SELECT * FROM scrts")
 
     def show(self):
+        # scr_list.remove(self)
+        # for i in scr_list:
+        #     if i.state == "opened":
+        #         i.close()
         self.close_but.pack(anchor=NW)
         self.frame_elem.pack(anchor=NW, fill=X, padx=1, pady=1)
         self.show_but.pack_forget()
-
-    # def get_elems(self):
-    #     self.ch1 = self.ch_elem_1.get()
-    #     self.ch2 = self.ch_elem_1.get()
-    #     self.ch3 = self.ch_elem_1.get()
-    #     self.ch4 = self.ch_elem_1.get()
-    #     self.ch5 = self.ch_elem_1.get()
-    #     self.ch6 = self.ch_elem_1.get()
-    #     self.ch7 = self.ch_elem_1.get()
-    #     self.ch8 = self.ch_elem_1.get()
-    #     self.ch9 = self.ch_elem_1.get()
-    #     self.ch10 = self.ch_elem_1.get()
 
     def start(self):
         self.ch1 = self.ch_elem_1.get()
@@ -286,6 +349,73 @@ class Script:
             pass
         else:
             os.startfile(path_list[elem_name_list.index(self.ch10)])
+
+    def save_elems(self):
+        try:
+            pass
+        except ValueError:
+            showerror(message="Невозможно сохранить: Не выбраны элементы!")
+        self.ch1 = self.ch_elem_1.get()
+        self.ch2 = self.ch_elem_2.get()
+        self.ch3 = self.ch_elem_3.get()
+        self.ch4 = self.ch_elem_4.get()
+        self.ch5 = self.ch_elem_5.get()
+        self.ch6 = self.ch_elem_6.get()
+        self.ch7 = self.ch_elem_7.get()
+        self.ch8 = self.ch_elem_8.get()
+        self.ch9 = self.ch_elem_9.get()
+        self.ch10 = self.ch_elem_10.get()
+        if self.ch1 == "":
+            pass
+        else:
+            scrt_cur.execute("UPDATE scrts SET elem1 =? WHERE name=?", (path_list[elem_name_list.index(self.ch1)],
+                                                                        self.name))
+        if self.ch2 == "":
+            pass
+        else:
+            scrt_cur.execute("UPDATE scrts SET elem1 =? WHERE name=?", (path_list[elem_name_list.index(self.ch2)],
+                                                                        self.name))
+        if self.ch3 == "":
+            pass
+        else:
+            scrt_cur.execute("UPDATE scrts SET elem1 =? WHERE name=?", (path_list[elem_name_list.index(self.ch3)],
+                                                                        self.name))
+        if self.ch4 == "":
+            pass
+        else:
+            scrt_cur.execute("UPDATE scrts SET elem1 =? WHERE name=?", (path_list[elem_name_list.index(self.ch4)],
+                                                                        self.name))
+        if self.ch5 == "":
+            pass
+        else:
+            scrt_cur.execute("UPDATE scrts SET elem1 =? WHERE name=?", (path_list[elem_name_list.index(self.ch5)],
+                                                                        self.name))
+        if self.ch6 == "":
+            pass
+        else:
+            scrt_cur.execute("UPDATE scrts SET elem1 =? WHERE name=?", (path_list[elem_name_list.index(self.ch6)],
+                                                                        self.name))
+        if self.ch7 == "":
+            pass
+        else:
+            scrt_cur.execute("UPDATE scrts SET elem1 =? WHERE name=?", (path_list[elem_name_list.index(self.ch7)],
+                                                                        self.name))
+        if self.ch8 == "":
+            pass
+        else:
+            scrt_cur.execute("UPDATE scrts SET elem1 =? WHERE name=?", (path_list[elem_name_list.index(self.ch8)],
+                                                                        self.name))
+        if self.ch9 == "":
+            pass
+        else:
+            scrt_cur.execute("UPDATE scrts SET elem1 =? WHERE name=?", (path_list[elem_name_list.index(self.ch9)],
+                                                                        self.name))
+        if self.ch10 == "":
+            pass
+        else:
+            scrt_cur.execute("UPDATE scrts SET elem1 =? WHERE name=?", (path_list[elem_name_list.index(self.ch10)],
+                                                                        self.name))
+        scrt_db.commit()
 
 
 def ch_file():
@@ -386,10 +516,14 @@ def start_app():
 
 root = Tk()  # Создаем окно
 root.title("Автозапускатель")
-root.geometry("350x670")
+root.geometry("350x690")
 root.resizable(False, False)
 
 font1 = font.Font(family="Arial", size=11, weight="normal", slant="roman")
+
+font2 = font.Font(family="Arial", size=11, weight="normal", slant="roman")  # Лейбл создателя
+creatorLabel = ttk.Label(text="Author: KirNsk", font=font2, foreground="grey50")
+creatorLabel.place(x=125, y=670)
 
 main_menu = Menu()
 file_menu = Menu(tearoff=0)
@@ -443,7 +577,7 @@ elem_cur.execute("SELECT * FROM elems")
 
 for i in range(50):
     obj = elem_cur.fetchone()
-    if obj == None:
+    if obj is None:
         break
     else:
         Element(obj[1], state="old")
